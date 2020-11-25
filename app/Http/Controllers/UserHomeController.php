@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Http\Requests\UserHomeStoreRequest;
 use App\Http\Requests\UserHomeUpdateRequest;
 use App\Models\UserHome;
@@ -17,7 +18,7 @@ class UserHomeController extends Controller
     {
         $userHomes = UserHome::all();
 
-        return view('userHome.index', compact('userHomes'));
+        return Inertia::render('Homes.index', compact('userHomes'));
     }
 
     /**
@@ -26,7 +27,7 @@ class UserHomeController extends Controller
      */
     public function create(Request $request)
     {
-        return view('userHome.create');
+        return Inertia::render('Homes.create');
     }
 
     /**
@@ -37,9 +38,9 @@ class UserHomeController extends Controller
     {
         $userHome = UserHome::create($request->validated());
 
-        $request->session()->flash('userHome.id', $userHome->id);
+        // $request->session()->flash('userHome.id', $userHome->id);
 
-        return redirect()->route('userHome.index');
+        return redirect()->route('Homes.index');
     }
 
     /**
@@ -49,7 +50,7 @@ class UserHomeController extends Controller
      */
     public function show(Request $request, UserHome $userHome)
     {
-        return view('userHome.show', compact('userHome'));
+        return Inertia::render('Homes.show', compact('userHome'));
     }
 
     /**
@@ -59,7 +60,7 @@ class UserHomeController extends Controller
      */
     public function edit(Request $request, UserHome $userHome)
     {
-        return view('userHome.edit', compact('userHome'));
+        return Inertia::render('Homes.edit', compact('userHome'));
     }
 
     /**
@@ -71,9 +72,9 @@ class UserHomeController extends Controller
     {
         $userHome->update($request->validated());
 
-        $request->session()->flash('userHome.id', $userHome->id);
+        // $request->session()->flash('userHome.id', $userHome->id);
 
-        return redirect()->route('userHome.index');
+        return redirect()->route('Homes.index');
     }
 
     /**
@@ -85,6 +86,6 @@ class UserHomeController extends Controller
     {
         $userHome->delete();
 
-        return redirect()->route('userHome.index');
+        return redirect()->route('Homes.index');
     }
 }
