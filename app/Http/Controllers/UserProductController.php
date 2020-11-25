@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Http\Requests\UserProductStoreRequest;
 use App\Http\Requests\UserProductUpdateRequest;
 use App\Models\UserProduct;
@@ -17,7 +18,7 @@ class UserProductController extends Controller
     {
         $userProducts = UserProduct::all();
 
-        return view('userProduct.index', compact('userProducts'));
+        return Inertia::render('Products/Index', compact('userProducts'));
     }
 
     /**
@@ -26,7 +27,7 @@ class UserProductController extends Controller
      */
     public function create(Request $request)
     {
-        return view('userProduct.create');
+        return Inertia::render('Products/Create');
     }
 
     /**
@@ -37,7 +38,7 @@ class UserProductController extends Controller
     {
         $userProduct = UserProduct::create($request->validated());
 
-        $request->session()->flash('userProduct.id', $userProduct->id);
+        // $request->session()->flash('userProduct.id', $userProduct->id);
 
         return redirect()->route('userProduct.index');
     }
@@ -47,9 +48,9 @@ class UserProductController extends Controller
      * @param \App\Models\UserProduct $userProduct
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, UserProduct $userProduct)
+    public function show(Request $request)
     {
-        return view('userProduct.show', compact('userProduct'));
+        return Inertia::render('Products/Show');
     }
 
     /**
@@ -59,7 +60,7 @@ class UserProductController extends Controller
      */
     public function edit(Request $request, UserProduct $userProduct)
     {
-        return view('userProduct.edit', compact('userProduct'));
+        return Inertia::render('Products/Edit', compact('userProduct'));
     }
 
     /**
@@ -71,7 +72,7 @@ class UserProductController extends Controller
     {
         $userProduct->update($request->validated());
 
-        $request->session()->flash('userProduct.id', $userProduct->id);
+        // $request->session()->flash('userProduct.id', $userProduct->id);
 
         return redirect()->route('userProduct.index');
     }

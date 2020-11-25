@@ -23,7 +23,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 
-Route::resource('user-home', App\Http\Controllers\UserHomeController::class);
+Route::resource('homes', App\Http\Controllers\UserHomeController::class);
 
 
-Route::resource('user-product', App\Http\Controllers\UserProductController::class);
+Route::resource('products', App\Http\Controllers\UserProductController::class);

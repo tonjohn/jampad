@@ -17,8 +17,7 @@ class UserHomeController extends Controller
     public function index(Request $request)
     {
         $userHomes = UserHome::all();
-
-        return Inertia::render('Homes.index', compact('userHomes'));
+        return Inertia::render('Homes/Index', compact('userHomes'));
     }
 
     /**
@@ -27,7 +26,7 @@ class UserHomeController extends Controller
      */
     public function create(Request $request)
     {
-        return Inertia::render('Homes.create');
+        return Inertia::render('Homes/Create');
     }
 
     /**
@@ -36,11 +35,22 @@ class UserHomeController extends Controller
      */
     public function store(UserHomeStoreRequest $request)
     {
-        $userHome = UserHome::create($request->validated());
+
+        $userHome = $request->user()->homes()->create($request->validated());
+        // $userHome = UserHome::create([
+        //     'nickname' => $request->get('nickname'),
+        //     // 'address' => $request->get('address'),
+        //     // 'city' => $request->get('city'),
+        //     // 'state' => $request->get('state'),
+        //     // 'zip' => $request->get('zip'),
+        //     'updated_by' => 1,
+        //     "created_by" => 1,
+        // ]);
 
         // $request->session()->flash('userHome.id', $userHome->id);
 
-        return redirect()->route('Homes.index');
+        return
+            redirect()->route('homes.edit', $userHome->id)->with('success', 'Home added.'); //redirect()->route('Homes.index');
     }
 
     /**
@@ -48,7 +58,7 @@ class UserHomeController extends Controller
      * @param \App\Models\UserHome $userHome
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, UserHome $userHome)
+    public function show(Request $request, UserHome $home)
     {
         return Inertia::render('Homes.show', compact('userHome'));
     }
@@ -58,9 +68,10 @@ class UserHomeController extends Controller
      * @param \App\Models\UserHome $userHome
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, UserHome $userHome)
+    public function edit(Request $request, UserHome $home)
     {
-        return Inertia::render('Homes.edit', compact('userHome'));
+
+        return Inertia::render('Homes/Edit', ['userHome' => $home]);
     }
 
     /**
@@ -68,9 +79,9 @@ class UserHomeController extends Controller
      * @param \App\Models\UserHome $userHome
      * @return \Illuminate\Http\Response
      */
-    public function update(UserHomeUpdateRequest $request, UserHome $userHome)
+    public function update(UserHomeUpdateRequest $request, UserHome $home)
     {
-        $userHome->update($request->validated());
+        $home->update($request->validated());
 
         // $request->session()->flash('userHome.id', $userHome->id);
 
@@ -82,9 +93,9 @@ class UserHomeController extends Controller
      * @param \App\Models\UserHome $userHome
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, UserHome $userHome)
+    public function destroy(Request $request, UserHome $home)
     {
-        $userHome->delete();
+        $home->delete();
 
         return redirect()->route('Homes.index');
     }
