@@ -57,4 +57,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function homes()
+    {
+        return $this->hasMany(UserHome::class, 'created_by');
+    }
 }
