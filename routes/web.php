@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return Inertia\Inertia::render('Temp');
+    return Inertia\Inertia::render('Onboarding');
     // return view('welcome');
 });
 
