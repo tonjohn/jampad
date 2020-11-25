@@ -25,8 +25,8 @@ class CreateUserProductsTable extends Migration
             $table->string('serial_number')->nullable();
             $table->string('category')->nullable();
             $table->string('location')->nullable();
-            $table->foreignId('created_by')->nullable()->constrained('users', 'by')->onDelete('no action');
-            $table->foreignId('updated_by')->nullable()->constrained('users', 'by')->onDelete('no action');
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('no action');
+            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('no action');
             $table->timestamps();
         });
 

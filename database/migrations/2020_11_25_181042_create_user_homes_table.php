@@ -22,8 +22,8 @@ class CreateUserHomesTable extends Migration
             $table->string('city')->nullable();
             $table->char('state', 2)->nullable();
             $table->string('zip')->nullable();
-            $table->foreignId('created_by')->nullable()->constrained('users', 'by')->onDelete('no action');
-            $table->foreignId('updated_by')->nullable()->constrained('users', 'by')->onDelete('no action');
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('no action');
+            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('no action');
             $table->timestamps();
         });
 
